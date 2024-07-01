@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { GitHubService } from "../services/github.service";
+import { DiscordService } from "../services/discord.service";
 
 
 
@@ -7,6 +8,7 @@ export class GithubController {
 
     constructor(
         private readonly githubService = new GitHubService(),
+        private readonly discordService = new DiscordService(),
     ){}
 
 
@@ -33,6 +35,9 @@ export class GithubController {
         }
 
         console.log({message});
+        this.discordService.notify(message)
+        .then(()=>res.status(202).send('Accepted'))
+        .catch(()=>res.status(500).json({error: 'internal server error'}));
 
         res.status(201).send('Accepted');
 

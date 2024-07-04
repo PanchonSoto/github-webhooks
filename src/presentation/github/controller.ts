@@ -39,7 +39,7 @@ export class GithubController {
         .then(()=>res.status(202).send('Accepted'))
         .catch(()=>res.status(500).json({error: 'internal server error'}));
 
-        res.status(201).send('Accepted');
+        // res.status(201).send('Accepted');
 
     }
 
